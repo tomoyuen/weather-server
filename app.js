@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const koaBody = require('koa-body');
 const session = require('koa-session');
-const CSRF = require('koa-csrf');
+const cors = require('koa2-cors');
 const router = require('koa-router')();
 
 const app = module.exports = new Koa();
@@ -23,14 +23,14 @@ app.use(koaBody());
  * csrf middleware
  */
 
-app.use(new CSRF({ origin: true }));
+app.use(cors({ origin: '*' }));
 
 /**
  * route
  */
 
 router.get('/', homepage)
-  .get('/forecast', forecast);
+  .get('/api/forecast', forecast);
 
 app.use(router.routes());
 
